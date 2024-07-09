@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Foodie Deligth",
+  title: "Foodie Delight",
   description: "Find the best food 🍲 from the best restaurants out there.",
 };
 
