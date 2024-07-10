@@ -5,6 +5,7 @@ import RestaurantCard from '@/components/RestaurantCard';
 import { useInView } from "react-intersection-observer"
 import { Button } from '@/components/ui/button';
 import { getRestaurant } from '@/lib/actions';
+import Link from 'next/link';
 
 export const runtime = 'edge'
 
@@ -38,7 +39,9 @@ export default function Home() {
       <div className={`mx-auto w-fit grid grid-cols-1 ${restaurants.length > 1 ? 'sm:grid-cols-2' : ''} ${restaurants.length > 2 ? 'md:grid-cols-3' : ''} justify-items-center content-center gap-5 mt-10`}>
         {
           restaurants.map(restaurant => (
-            <RestaurantCard key={restaurant.id} rest={restaurant} showOptions={false} />
+            <Link key={restaurant.id} href={`/restaurant/${restaurant.id}`}>
+              <RestaurantCard rest={restaurant} showOptions={false} />
+            </Link>
           ))
         }
       </div>
