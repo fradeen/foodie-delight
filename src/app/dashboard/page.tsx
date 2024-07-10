@@ -16,7 +16,7 @@ export default async function Dashboard() {
                 <h1 className='text-3xl font-semibold'>Add/Update Restaurants</h1>
                 <RestaurantFormDialog />
             </div>
-            <div className={`grid grid-cols-1 ${restaurants.length > 1 ? 'sm:grid-cols-2' : ''} ${restaurants.length > 2 ? 'md:grid-cols-3' : ''} justify-items-center content-center gap-5 mt-10`}>
+            <div className={` mx-auto w-fit grid grid-cols-1 ${restaurants.length > 1 ? 'sm:grid-cols-2' : ''} ${restaurants.length > 2 ? 'md:grid-cols-3' : ''} justify-items-center content-center gap-5 mt-10`}>
                 {
                     restaurants.map(restaurant => (
                         <RestaurantCard key={restaurant.id} rest={restaurant} showOptions={true} />
