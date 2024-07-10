@@ -12,7 +12,7 @@ export default function SearchBox() {
 
                 <Input
                     onChange={() => setOpen(true)}
-                    placeholder='Search for your next meal 🔍'
+                    placeholder='Search for your restaurants'
                 />
             </PopoverAnchor>
             <PopoverContent
