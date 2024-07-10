@@ -5,7 +5,7 @@ import { restaurantSchema, restaurantType } from "./zod_Schema/restaurant";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 import { restaurant } from "./schema/restaurant";
 import { revalidatePath } from "next/cache";
-import { asc, eq } from "drizzle-orm";
+import { asc, eq, like } from "drizzle-orm";
 
 export async function addRestaurant(rest: restaurantType) {
     try {
@@ -72,5 +72,20 @@ export async function getRestaurant(page: number = 1) {
     } catch (err) {
         console.log(err)
     }
-    revalidatePath('/dashboard')
+}
+
+export async function searchRestarunt(searchTerm: string) {
+    try {
+        if (!searchTerm.trim())
+            return [] as (typeof restaurant.$inferSelect)[]
+        const db = drizzle(getRequestContext().env.DB)
+        const queryResult = await db
+            .select()
+            .from(restaurant)
+            .where(like(restaurant.name, `%${searchTerm}%`))
+
+        return queryResult
+    } catch (err) {
+        console.log(err)
+    }
 }
