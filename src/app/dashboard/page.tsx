@@ -10,7 +10,6 @@ export const runtime = 'edge'
 export default async function Dashboard() {
     const db = drizzle(getRequestContext().env.DB);
     const restaurants = await db.select().from(restaurant).all()
-    console.log(restaurants[0])
     return (
         <>
             <div className='flex justify-between items-center gap-2 mt-10'>

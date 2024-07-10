@@ -10,5 +10,5 @@ export const restaurant = sqliteTable('restaurant', {
     city: text('city').notNull(),
     pinCode: text('pinCode').notNull(),
     state: text('state').notNull(),
-    dateAdded: integer('dateAdded', { mode: 'timestamp' }).notNull().default(sql`CURRENT_TIMESTAMP`),
+    dateAdded: integer('dateAdded', { mode: 'timestamp_ms' }).notNull().default(sql`CURRENT_TIMESTAMP`),
 })
