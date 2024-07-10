@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Main from "@/components/Main";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <Main>
           {children}
         </Main>
+        <Toaster />
         <Footer />
       </body>
     </html>

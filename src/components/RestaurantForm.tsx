@@ -1,16 +1,20 @@
 'use client'
-import React from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import React, { useRef } from 'react'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from './ui/button';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { restaurantSchema, restaurantType } from '@/lib/zod_Schema/restaurant';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { addRestaurant } from '@/lib/actions';
+import { addRestaurant, updateRestaurant } from '@/lib/actions';
+import { useToast } from './ui/use-toast';
+import { z } from 'zod';
 
-export default function RestaurantFormDialog({ restaurant }: { restaurant?: restaurantType }) {
+export default function RestaurantFormDialog({ restaurant }: { restaurant?: (restaurantType & { id: number }) }) {
+    let closeButtonRef = useRef<HTMLButtonElement>(null)
+    const { toast } = useToast()
     const form = useForm<restaurantType>({
         resolver: zodResolver(restaurantSchema),
         defaultValues: restaurant ?? {
@@ -23,16 +27,25 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: rest
             addressLineTwo: ''
         }
     })
-    function onSubmit(values: restaurantType) {
-        console.log(values)
-        addRestaurant.bind(null, values)()
+    async function onSubmit(values: restaurantType) {
+        let error: (z.inferFlattenedErrors<typeof restaurantSchema> | string | undefined)
+        if (restaurant && restaurant.id)
+            await updateRestaurant.bind(null, { restaurant: values, id: restaurant.id })()
+        else
+            await addRestaurant.bind(null, values)()
+        closeButtonRef.current?.click()
+        toast({
+            title: `${error ? "Uh oh! Something went wrong." : restaurant ? 'Restaurant details updated' : 'Restaurant added'} successfully.`,
+            description: error ? error.toString() : undefined,
+            variant: `${error ? 'destructive' : 'default'}`
+        })
     }
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant='outline'>{restaurant ? 'Update Details' : 'Add'}</Button>
+                <Button variant={`${restaurant ? 'outline' : 'default'}`}>{restaurant ? 'Update Details' : 'Add new Restaurant'}</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] bg-inherit overflow-y-auto">
+            <DialogContent className="sm:max-w-[425px] bg-inherit overflow-y-auto max-h-[96%]">
                 <DialogHeader>
                     <DialogTitle>{restaurant?.name ?? 'Add new Restaurant'}</DialogTitle>
                     <DialogDescription>
@@ -132,6 +145,9 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: rest
                                 </FormItem>
                             )}
                         />
+                        <DialogClose asChild>
+                            <button ref={closeButtonRef} type='button' className='hidden' tabIndex={-1} />
+                        </DialogClose>
                         <Button type="submit">Submit</Button>
                     </form>
                 </Form>
