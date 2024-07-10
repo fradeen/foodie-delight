@@ -5,7 +5,7 @@ import { restaurantSchema, restaurantType } from "./zod_Schema/restaurant";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 import { restaurant } from "./schema/restaurant";
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 export async function addRestaurant(rest: restaurantType) {
     try {
@@ -55,6 +55,22 @@ export async function deleteRestaurant(id: number) {
         console.log(err)
         if (err instanceof Error)
             return err.message
+    }
+    revalidatePath('/dashboard')
+}
+
+export async function getRestaurant(page: number = 1) {
+    try {
+        const db = drizzle(getRequestContext().env.DB)
+        const queryResult = await db
+            .select()
+            .from(restaurant)
+            .orderBy(asc(restaurant.dateAdded))
+            .limit(3)
+            .offset((page - 1) * 3)
+        return queryResult
+    } catch (err) {
+        console.log(err)
     }
     revalidatePath('/dashboard')
 }

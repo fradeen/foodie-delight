@@ -13,7 +13,7 @@ export default function RestaurantCard({ rest, showOptions }: { rest: (typeof re
                 <CardDescription>Partner Since: {rest.dateAdded.toDateString()}</CardDescription>
             </CardHeader>
             <CardContent className='flex flex-col items-center gap-5'>
-                <Image src={`/restaurant_${Math.floor(Math.random() * 10) + 1}.jpg`} width={640} height={640} alt='' className='rounded-lg' />
+                <Image src={`/restaurant_${(rest.id % 4) + 1}.jpg`} width={640} height={640} alt='' className='rounded-lg' />
                 <span className='line-clamp-4 h-24'>{rest.description}</span>
             </CardContent>
             <CardFooter className="flex justify-around">
