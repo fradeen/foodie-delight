@@ -34,6 +34,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
         else
             await addRestaurant.bind(null, values)()
         closeButtonRef.current?.click()
+        form.reset()
         toast({
             title: `${error ? "Uh oh! Something went wrong." : restaurant ? 'Restaurant details updated' : 'Restaurant added'} successfully.`,
             description: error ? error.toString() : undefined,
@@ -61,7 +62,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Restaurant Name" {...field} />
+                                        <Input placeholder="Restaurant Name*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -74,7 +75,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>About Restaurant</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder="About Restaurant" {...field} />
+                                        <Textarea placeholder="About Restaurant*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -87,7 +88,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>Address Line 1</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Address line 1" {...field} />
+                                        <Input placeholder="Address line 1*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -100,7 +101,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>Address line 2</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Address line 2" {...field} />
+                                        <Input placeholder="Address line 2 (Optional)" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -113,7 +114,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>City</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="City" {...field} />
+                                        <Input placeholder="City*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -126,7 +127,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>Pincode</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Pincode" {...field} />
+                                        <Input placeholder="Pincode*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -139,7 +140,7 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
                                 <FormItem>
                                     <FormLabel>State</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="State" {...field} />
+                                        <Input placeholder="State*" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
