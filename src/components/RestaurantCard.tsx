@@ -9,7 +9,7 @@ export default function RestaurantCard({ rest, showOptions }: { rest: (typeof re
     return (
         <Card className="w-full h-fit max-w-xs sm:max-w-xs md:max-w-sm justify-self-center">
             <CardHeader>
-                <CardTitle className='text-2xl'>{rest.name}</CardTitle>
+                <CardTitle className='text-2xl line-clamp-1'>{rest.name}</CardTitle>
                 <CardDescription>Partner Since: {rest.dateAdded.toDateString()}</CardDescription>
             </CardHeader>
             <CardContent className='flex flex-col items-center gap-5'>
