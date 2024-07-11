@@ -38,7 +38,7 @@ export default function SearchBox() {
             </PopoverAnchor>
             <PopoverContent
                 onOpenAutoFocus={(event) => event.preventDefault()}
-                className='w-[100svh] max-h-screen max-w-xs sm:max-w-sm md:max-w-screen-sm overflow-y-auto'
+                className='w-[100svh] max-h-[33rem] max-w-xs sm:max-w-sm md:max-w-screen-sm overflow-y-auto my-5'
             >
                 <div className='flex flex-col gap-2'>
                     {restaurants.map(restaurant => (
