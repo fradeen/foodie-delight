@@ -16,15 +16,14 @@ export default function RestaurantCard({ rest, showOptions }: { rest: (typeof re
                 <Image src={`/restaurant_${(rest.id % 4) + 1}.jpg`} width={640} height={640} alt='' className='rounded-lg' />
                 <span className='line-clamp-4 h-24'>{rest.description}</span>
             </CardContent>
-            <CardFooter className="flex justify-around">
-                {
-                    showOptions && (
-                        <>
-                            <RestaurantFormDialog restaurant={{ ...rest, addressLineTwo: rest.addressLineTwo ?? '' }} />
-                            <RestaurantDelistdialog id={rest.id} name={rest.name} />
-                        </>)
-                }
-            </CardFooter>
+            {
+                showOptions && (
+                    <CardFooter className="flex justify-around">
+                        <RestaurantFormDialog restaurant={{ ...rest, addressLineTwo: rest.addressLineTwo ?? '' }} />
+                        <RestaurantDelistdialog id={rest.id} name={rest.name} />
+                    </CardFooter>
+                )
+            }
         </Card>
     )
 }
