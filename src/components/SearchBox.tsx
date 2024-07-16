@@ -8,6 +8,7 @@ import { useDebounced } from '@/lib/hooks'
 import { searchRestarunt } from '@/lib/actions'
 import RestaurantSearchCard from './RestaurantSearchCard'
 import Link from 'next/link'
+import { X } from 'lucide-react'
 
 export default function SearchBox() {
     const [open, setOpen] = useState(false)
@@ -25,7 +26,7 @@ export default function SearchBox() {
     }, [debouncedSearchterm])
     return (
         <Popover open={open && restaurants.length > 0} onOpenChange={setOpen}>
-            <PopoverAnchor className='w-full max-w-xs sm:max-w-sm md:max-w-screen-sm'>
+            <PopoverAnchor className='w-full max-w-xs sm:max-w-sm md:max-w-screen-sm relative'>
 
                 <Input
                     onChange={(event) => {
@@ -34,11 +35,17 @@ export default function SearchBox() {
                     }}
                     placeholder='Search for restaurants'
                     value={searchterm}
+                    className='peer'
                 />
+                {searchterm.length ? (
+                    <PopoverClose asChild className='absolute right-1 top-0 h-full'>
+                        <X />
+                    </PopoverClose>
+                ) : null}
             </PopoverAnchor>
             <PopoverContent
                 onOpenAutoFocus={(event) => event.preventDefault()}
-                className='w-[100svh] max-h-[33rem] max-w-xs sm:max-w-sm md:max-w-screen-sm overflow-y-auto my-5'
+                className='w-[100svh] max-h-[33rem] max-w-sm sm:max-w-md md:max-w-screen-sm overflow-y-auto my-5 overscroll-contain'
             >
                 <div className='flex flex-col gap-2'>
                     {restaurants.map(restaurant => (
