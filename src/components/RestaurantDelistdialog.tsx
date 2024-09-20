@@ -28,9 +28,7 @@ export default function RestaurantDelistdialog({ id, name }: { id: number, name:
                         Delisting a restaurant is permanent; once delisted all dishes associated to it will also be permanently removed.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={onSubmit}>
-                    <Button variant='destructive' className='mx-auto'>Delist: {name}</Button>
-                </form>
+                <Button type='button' onClick={onSubmit} variant='destructive' className='mx-auto'>Delist: {name}</Button>
                 <DialogClose asChild>
                     <button ref={closeButtonRef} type='button' className='hidden' tabIndex={-1} />
                 </DialogClose>

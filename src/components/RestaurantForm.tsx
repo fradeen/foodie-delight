@@ -30,13 +30,13 @@ export default function RestaurantFormDialog({ restaurant }: { restaurant?: (res
     async function onSubmit(values: restaurantType) {
         let error: (z.inferFlattenedErrors<typeof restaurantSchema> | string | undefined)
         if (restaurant && restaurant.id)
-            await updateRestaurant.bind(null, { restaurant: values, id: restaurant.id })()
+            error = await updateRestaurant.bind(null, { restaurant: values, id: restaurant.id })()
         else
-            await addRestaurant.bind(null, values)()
+            error = await addRestaurant.bind(null, values)()
         closeButtonRef.current?.click()
         form.reset()
         toast({
-            title: `${error ? "Uh oh! Something went wrong." : restaurant ? 'Restaurant details updated' : 'Restaurant added'} successfully.`,
+            title: `${error ? "Uh oh! Something went wrong." : restaurant ? 'Restaurant details updated successfully.' : 'Restaurant added successfully.'}`,
             description: error ? error.toString() : undefined,
             variant: `${error ? 'destructive' : 'default'}`
         })
